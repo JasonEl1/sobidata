@@ -17,8 +17,8 @@ import requests
 import time
 
 from dicttoxml import dicttoxml
-from openpyxl.writer.excel import save_virtual_workbook
-from StringIO import StringIO
+from openpyxl.writer.excel import save_workbook
+from io import StringIO
 
 class Sobi(object):
     def __init__(self):
@@ -209,6 +209,7 @@ class Sobi(object):
     def save_data(self, ext='json', name='sobidata_export'):
         ext = ext.lower()
         filename = os.path.join(self.path, name + '.' + ext)
+        filename = os.path.expanduser(filename)
         contents = self.export_data(self.data, ext)
         with open(filename, 'w') as myfile:
             myfile.write(contents)
